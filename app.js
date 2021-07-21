@@ -12,7 +12,7 @@ app.use(cors());
 
 const io = require('socket.io')(httpServer, {
     cors:{
-        origin: "*",
+        origin: "https://ades-tic-tac-toe.netlify.app",
         methods: ["GET", "POST"]
     }
 });
