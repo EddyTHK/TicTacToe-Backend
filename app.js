@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
         });
     });
 
-    // TODO Join Game (Player 2)
+    //Join Game (Player 2)
     socket.on("join-session", function(data) {
         var id = data.id;
         var name = data.name;
