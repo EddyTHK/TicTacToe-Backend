@@ -23,8 +23,8 @@ httpServer.listen(port, function(){
     console.log('listening for requests on port',port);
 });
 
-app.get('/', (req, res) => {
-    res.sendStatus(200);
+app.use(function (req, res) {
+    return res.sendStatus(200);
 });
 
 const sessInfo ={};
