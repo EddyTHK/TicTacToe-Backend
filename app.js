@@ -1,7 +1,11 @@
 // imports
 const express = require('express');
 const cors = require('cors');
-const socket = require('socket.io');
+const socket = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+    }
+});
 const {nanoid}= require('nanoid');
 
 // const Game = require('../logic/player.js')
