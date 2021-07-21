@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const {nanoid}= require('nanoid');
-const socket = require('socket.io');
 
 // const Game = require('../logic/player.js')
 
@@ -10,14 +9,23 @@ const socket = require('socket.io');
 var app = express();
 app.use(cors());
 
-app.use(function (req, res) {
-    return res.sendStatus(200);
-});
-
 const port = process.env.PORT || 4000
 
 var server = app.listen(port, function(){
     console.log('listening for requests on port',port);
+});
+
+const socket = require('socket.io')(server, {
+    cors:{
+        origin: ["*"],
+        
+        handlePreFlightRequest: (req, res) => {
+            res.writeHead(200, {
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Methods" : "GET,POST"
+            });
+        }
+    }
 });
 
 // Static files
