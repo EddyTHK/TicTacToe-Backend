@@ -1,34 +1,34 @@
 // imports
 const express = require('express');
+var app = express();
 const cors = require('cors');
-const {nanoid}= require('nanoid');
+const {nanoid} = require('nanoid');
+const httpServer = require('http').createServer(app);
 
 // const Game = require('../logic/player.js')
 
 // App setup
-var app = express();
 app.use(cors());
 
-const port = process.env.PORT || 4000
-
-var server = app.listen(port, function(){
-    console.log('listening for requests on port',port);
-});
-
-const socket = require('socket.io')(port, {
+const io = require('socket.io')(httpServer, {
     cors:{
         origin: "*",
         methods: ["GET", "POST"]
     }
 });
 
-// Static files
-app.use(express.static('../website'));
+const port = process.env.PORT || 4000
+
+httpServer.listen(port, function(){
+    console.log('listening for requests on port',port);
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
 const sessInfo ={};
 
-// Socket setup & pass server
-var io = socket(server);
 io.on('connection', (socket) => {
 
     console.log('Socket connected: ', socket.id);
