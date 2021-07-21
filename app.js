@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const {nanoid}= require('nanoid');
+const socket = require('socket.io');
 
 // const Game = require('../logic/player.js')
 
@@ -17,14 +18,6 @@ const port = process.env.PORT || 4000
 
 var server = app.listen(port, function(){
     console.log('listening for requests on port',port);
-});
-
-const socket = require('socket.io')(server, {
-    cors:{
-        origin:"*",
-        methods: ["GET", "POST"],
-        credentials: true,
-    }
 });
 
 // Static files
