@@ -24,7 +24,7 @@ httpServer.listen(port, function(){
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendStatus(200);
 });
 
 const sessInfo ={};
