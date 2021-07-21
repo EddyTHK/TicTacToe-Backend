@@ -5,7 +5,7 @@ const cors = require('cors');
 const {nanoid} = require('nanoid');
 const httpServer = require('http').createServer(app);
 
-const Game = require('../logic/player.js')
+const Game = require('./logic/player.js');
 
 // App setup
 app.use(cors());
