@@ -17,7 +17,7 @@ const io = require('socket.io')(httpServer, {
     }
 });
 
-const port = process.env.PORT
+const port = process.env.PORT || 4000
 
 httpServer.listen(port, function(){
     console.log('listening for requests on port',port);
