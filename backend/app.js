@@ -10,6 +10,10 @@ const Game = require('../logic/player.js')
 var app = express();
 app.use(cors());
 
+app.use(function (req, res) {
+    return res.sendStatus(200);
+});
+
 const port = process.env.PORT || 4000
 
 var server = app.listen(port, function(){
