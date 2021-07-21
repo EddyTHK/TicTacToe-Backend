@@ -27,7 +27,8 @@ app.use(function (req, res) {
     return res.sendStatus(200);
 });
 
-const sessInfo ={};
+const lobbyInfo ={};
+const sessionInfo={};
 
 io.on('connection', (socket) => {
     console.log('Socket connected: ', socket.id);
@@ -36,9 +37,15 @@ io.on('connection', (socket) => {
     socket.on('createSess', function(name){
         var sessionID = nanoid(10);
         console.log(sessionID);
-        console.log('username: ' + name);
+        console.log('player 1 name: ' + name);
 
-        sessInfo[sessionID] = new Game(name,socket,sessionID);
+        const gameInfo = new Game(name,socket,sessionID);
+
+        // Deconstructs lobbyInfo and binds the session id to game class
+        lobbyInfo = {...lobbyInfo, [sessionID]:gameInfo};
+
+        // Deconstructs sessionInfo and binds the socket to game class
+        sessionInfo = {...sessionInfo,[socket]:gameInfo};
         
         socket.emit("session-created", {
             id: sessionID,
@@ -53,7 +60,8 @@ io.on('connection', (socket) => {
             catch(err){
             }
             
-            delete sessInfo[sessionID];
+            delete lobbyInfo[sessionID];
+            delete sessionInfo[socket];
             console.log("session deleted");
         });
     });
@@ -63,10 +71,9 @@ io.on('connection', (socket) => {
         var id = data.id;
         var name = data.name;
         console.log("sessionid: " + id);
-        console.log("realID: " + sessionID);
         console.log("name: " + name);
         
-        if (sessionID == id) {
+        if (lobbyInfo[sessionID] == id) {
             Game.joinGame(name, id);
 
             socket.emit("GameStart");
