@@ -70,6 +70,8 @@ io.on('connection', (socket) => {
             Game.joinGame(name, id);
 
             socket.emit("GameStart");
+        }else {
+            socket.emit("errorInJoining");
         }
 
         // check if player 2 disconnected
