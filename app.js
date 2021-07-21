@@ -9,19 +9,17 @@ const {nanoid}= require('nanoid');
 var app = express();
 app.use(cors());
 
-app.use(function (req, res) {
-    return res.sendStatus(200);
-});
-
 const port = process.env.PORT || 4000
 
 var server = app.listen(port, function(){
     console.log('listening for requests on port',port);
 });
 
-const socket = require('socket.io')(app, {
-    cors: {
-        origin: '*',
+const socket = require('socket.io')(server, {
+    cors:{
+        origin:"*",
+        methods: ["GET", "POST"],
+        credentials: true,
     }
 });
 
