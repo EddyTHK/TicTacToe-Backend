@@ -1,5 +1,6 @@
 // imports
 const express = require('express');
+const cors = require('cors');
 const socket = require('socket.io');
 const {nanoid}= require('nanoid');
 
@@ -7,6 +8,8 @@ const Game = require('../logic/player.js')
 
 // App setup
 var app = express();
+app.use(cors());
+
 var server = app.listen(4000, function(){
     console.log('listening for requests on port 4000');
 });
