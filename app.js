@@ -15,16 +15,10 @@ var server = app.listen(port, function(){
     console.log('listening for requests on port',port);
 });
 
-const socket = require('socket.io')(server, {
+const socket = require('socket.io')(port, {
     cors:{
-        origin: ["*"],
-        
-        handlePreFlightRequest: (req, res) => {
-            res.writeHead(200, {
-                "Access-Control-Allow-Origin" : "*",
-                "Access-Control-Allow-Methods" : "GET,POST"
-            });
-        }
+        origin: "*",
+        methods: ["GET", "POST"]
     }
 });
 
