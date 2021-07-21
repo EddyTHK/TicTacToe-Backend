@@ -27,6 +27,3 @@ module.exports = class Game{
         this.player2Info = info;
     }
 }
-
-
-
