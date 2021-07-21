@@ -68,6 +68,8 @@ io.on('connection', (socket) => {
 
         if (sessInfo.sessionID == id) {
             Game.joinGame(name, id);
+
+            socket.emit("GameStart");
         }
     });
 });
