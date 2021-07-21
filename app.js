@@ -70,5 +70,17 @@ io.on('connection', (socket) => {
 
             socket.emit("GameStart");
         }
+
+        // check if player 2 disconnected
+        socket.on("disconnect", ()=> {
+            try{
+                socket.broadcast.emit("user-disconnected");
+            }
+            catch(err){
+            }
+            
+            delete sessInfo[sessionID];
+            console.log("session deleted");
+        });
     });
 });
