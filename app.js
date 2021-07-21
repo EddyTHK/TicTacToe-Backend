@@ -63,8 +63,9 @@ io.on('connection', (socket) => {
         var id = data.id;
         var name = data.name;
         console.log("sessionid: " + id);
+        console.log("realID: " + sessInfo.sessionID);
         console.log("name: " + name);
-
+        
         if (sessInfo.sessionID == id) {
             Game.joinGame(name, id);
 
