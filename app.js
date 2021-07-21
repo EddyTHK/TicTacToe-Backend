@@ -30,7 +30,6 @@ app.use(function (req, res) {
 const sessInfo ={};
 
 io.on('connection', (socket) => {
-
     console.log('Socket connected: ', socket.id);
 
     // Create Game (Player 1)
@@ -62,7 +61,13 @@ io.on('connection', (socket) => {
 
     // TODO Join Game (Player 2)
     socket.on("join-session", function(data) {
-        console.log("sessionid: " + data.id);
-        console.log("name: " + data.name);
-    })
+        var id = data.id;
+        var name = data.name;
+        console.log("sessionid: " + id);
+        console.log("name: " + name);
+
+        if (sessInfo.sessionID == id) {
+            Game.joinGame(name, id);
+        }
+    });
 });

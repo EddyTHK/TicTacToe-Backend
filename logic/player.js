@@ -1,4 +1,4 @@
-module.exports = class {
+module.exports = class Game{
     player1Info;
     player2Info;
 
