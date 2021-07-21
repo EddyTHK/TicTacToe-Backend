@@ -51,7 +51,6 @@ io.on('connection', (socket) => {
                 socket.broadcast.emit("user-disconnected");
             }
             catch(err){
-                ;
             }
             
             delete sessInfo[sessionID];
