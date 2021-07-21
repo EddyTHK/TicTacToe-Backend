@@ -17,7 +17,7 @@ app.use(function (req, res) {
 const port = process.env.PORT || 4000
 
 var server = app.listen(port, function(){
-    console.log('listening for requests on port 4000');
+    console.log('listening for requests on port',port);
 });
 
 // Static files
