@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
             name: name
         });
 
+        // check if player 1 disconnected
         socket.on("disconnect", ()=> {
             try{
                 socket.broadcast.emit("user-disconnected");
@@ -60,7 +61,8 @@ io.on('connection', (socket) => {
     });
 
     // TODO Join Game (Player 2)
-    // socket.on("join-session", function(data) {
-
-    // })
+    socket.on("join-session", function(data) {
+        console.log("sessionid: " + data.id);
+        console.log("name: " + data.name);
+    })
 });
