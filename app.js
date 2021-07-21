@@ -4,7 +4,7 @@ const cors = require('cors');
 const socket = require('socket.io');
 const {nanoid}= require('nanoid');
 
-const Game = require('../logic/player.js')
+// const Game = require('../logic/player.js')
 
 // App setup
 var app = express();
