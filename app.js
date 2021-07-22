@@ -27,8 +27,8 @@ app.use(function (req, res) {
     return res.sendStatus(200);
 });
 
-const lobbyInfo ={};
-const sessionInfo={};
+var lobbyInfo ={};
+var sessionInfo={};
 
 io.on('connection', (socket) => {
     console.log('Socket connected: ', socket.id);
@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
         console.log(sessionID);
         console.log('player 1 name: ' + name);
 
-        const gameInfo = new Game(name,socket,sessionID);
+        var gameInfo = new Game(name,socket,sessionID);
 
         // Deconstructs lobbyInfo and binds the session id to game class
         lobbyInfo = {...lobbyInfo, [sessionID]:gameInfo};
