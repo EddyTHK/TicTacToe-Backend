@@ -27,8 +27,8 @@ app.use(function (req, res) {
     return res.sendStatus(200);
 });
 
-var lobbyInfo ={};
-var sessionInfo={};
+var lobbyInfo=[];
+var gameInfo={};
 
 io.on('connection', (socket) => {
     console.log('Socket connected: ', socket.id);
@@ -37,15 +37,10 @@ io.on('connection', (socket) => {
     socket.on('createSess', function(name){
         var sessionID = nanoid(10);
         console.log(sessionID);
+        lobbyInfo.push(sessionID);
         console.log('player 1 name: ' + name);
 
-        var gameInfo = new Game(name,socket,sessionID);
-
-        // Deconstructs lobbyInfo and binds the session id to game class
-        lobbyInfo = {...lobbyInfo, [sessionID]:gameInfo};
-
-        // Deconstructs sessionInfo and binds the socket to game class
-        sessionInfo = {...sessionInfo,[socket]:gameInfo};
+        gameInfo = new Game(name,socket,sessionID);
         
         socket.emit("session-created", {
             id: sessionID,
@@ -59,9 +54,8 @@ io.on('connection', (socket) => {
             }
             catch(err){
             }
-            
-            delete lobbyInfo[sessionID];
-            delete sessionInfo[socket];
+
+            lobbyInfo.pop();
             console.log("session deleted");
         });
     });
@@ -70,16 +64,16 @@ io.on('connection', (socket) => {
     socket.on("join-session", function(data) {
         var id = data.id;
         var name = data.name;
-        console.log("sessionid: " + id);
-        console.log("name: " + name);
-        
-        console.log("read id: " + lobbyInfo[sessionID])
-        if (lobbyInfo[sessionID] == id) {
-            Game.joinGame(name, id);
+        console.log("player 2 name: " + name);
 
-            socket.emit("GameStart");
-        }else {
-            socket.emit("errorInJoining");
+        for (var i = 0; i < lobbyInfo.length; i++) {
+            if (lobbyInfo[i] == id) {
+                gameInfo.joinGame(name, id)
+                console.log("f")
+                socket.emit("GameStart");
+            }else {
+                socket.emit("errorInJoining");
+            }
         }
 
         // check if player 2 disconnected
@@ -90,7 +84,7 @@ io.on('connection', (socket) => {
             catch(err){
             }
             
-            delete sessInfo[sessionID];
+            lobbyInfo.pop();
             console.log("session deleted");
         });
     });

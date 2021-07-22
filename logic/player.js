@@ -23,7 +23,7 @@ module.exports = class Game{
     }
 
     JoinGame=(name,info)=>{
-        this.gameState.player2Name = name;
+        this.player2Name = name;
         this.player2Info = info;
     }
 }
