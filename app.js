@@ -65,7 +65,8 @@ io.on('connection', (socket) => {
         var id = data.id;
         var name = data.name;
         console.log("player 2 name: " + name);
-
+        console.log (lobbyInfo);
+        
         for (var i = 0; i < lobbyInfo.length; i++) {
             if (lobbyInfo[i] == id) {
                 gameInfo.joinGame(name, id)
