@@ -1,4 +1,4 @@
-module.exports = class Game{
+class Game{
     player1Info;
     player2Info;
 
@@ -22,8 +22,12 @@ module.exports = class Game{
         this.sessID = sessID;
     }
 
-    JoinGame=(name,info)=>{
+    joinGame = (name,info) =>{
         this.player2Name = name;
         this.player2Info = info;
     }
+}
+
+module.exports = {
+    Session:Game
 }
