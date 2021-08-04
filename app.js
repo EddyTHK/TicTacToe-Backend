@@ -45,6 +45,7 @@ io.on('connection', (socket) => {
             room: roomID
         });
 
+        // listen for button presses and update the board accordingly
         socket.on('updated', function (data) {
             var tile = data.tile;
             var type = data.type;
@@ -54,6 +55,24 @@ io.on('connection', (socket) => {
                 tile: tile,
                 type: type
             });
+        });
+
+        socket.on('draw', function () {
+            console.log("Draw!");
+            socket.to(roomID).emit('endDraw');
+        });
+
+        socket.on('win', function (data) {
+            var winner = data.winner;
+
+            io.emit('endWin', {
+                winner: winner
+            })
+        });
+
+        socket.on('exit' , function () {
+            socket.leave(roomID);
+            console.log(`user ${socket.id} has left the room`);
         });
 
         // check if player 1 disconnected
@@ -96,7 +115,25 @@ io.on('connection', (socket) => {
                     type: type
                 });
             });
+
+            socket.on('draw', function () {
+                console.log("Draw!");
+                socket.to(roomID).emit('endDraw');
+            });
+
+            socket.on('win', function (data) {
+                var winner = data.winner;
+    
+                io.emit('endWin', {
+                    winner: winner
+                })
+            });
             
+            socket.on('exit' , function () {
+                socket.leave(roomID);
+                console.log(`user ${socket.id} has left the room`);
+            });
+
         } else {
             socket.on("errorInJoining", {
                 error: "Error in joining! This room is already full."
