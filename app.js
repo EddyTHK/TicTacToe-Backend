@@ -21,6 +21,7 @@ async function main() {
         // only continue running when successfully connected to db
         await client.connect();
         await recordPlayerWin(client, {
+            text: "hello my name is dibo",
         });
 
     } catch (e) {
