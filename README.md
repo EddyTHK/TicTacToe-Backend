@@ -1,2 +1,2 @@
 # Backend Logic for TicTacToe game
-# https://ades-tic-tac-toe.netlify.app/
+# Link to game: https://ades-tic-tac-toe.netlify.app/
